@@ -28,21 +28,21 @@ void imprimirFatia(int z){
 
 int main(){
 
-    printf("Escreva as dimensoes dos eixos, que sejam positivas e impares:\n");
+    printf("Escreva as dimensoes dos eixos, que sejam impares e maiores/iguais a 5:\n");
    do{
         printf("Escreva a dimensao x:");
         scanf("%d", &nlin);
-    } while(nlin%2 == 0 || nlin <=1);
+    } while(nlin%2 == 0 || nlin < 5);
 
     do{
         printf("Escreva a dimensao y:");
         scanf("%d", &ncol);
-    }while(ncol%2 == 0 || ncol <=1);
+    }while(ncol%2 == 0 || ncol <5);
 
     do{
         printf("Escreva a dimensao z:");
         scanf("%d", &nfat);
-    }while(nfat%2 == 0 || nfat <=1);
+    }while(nfat%2 == 0 || nfat <5);
 
     Center_x = nlin/2;Center_y= ncol/2;Center_z = nfat/2;
     a = pow(Center_x,2); b = pow(Center_y,2); c = pow(Center_z,2);
@@ -51,7 +51,16 @@ int main(){
     x[0]= malloc(nlin*ncol*sizeof(int*));
     x[0][0] = malloc(nlin*ncol*nfat*sizeof(int));
 
-    for(int k = 0; k< Center_z; k++){
+    for(int i=0; i< nlin; i++)
+        {
+          x[i+1] = x[i]+ncol;
+          for(int j= 0; j<ncol;j++){
+              x[i][j+1] = x[i][j]+nfat;
+          }
+        }
+
+
+    for(int k = 0; k<= Center_z; k++){
         for(int i = 0; i<nlin; i++){
             for(int j = 0; j<ncol; j++){
                 x[i][j][k] = escrevaMatriz(i,j,k);
